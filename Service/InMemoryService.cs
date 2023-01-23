@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Extensions.Configuration;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -14,8 +15,19 @@ namespace LineServer.Service
 
         static InMemoryService()
         {
-            string filePath = "Resources/Text.txt";
-            fileInfo = File.ReadAllLines(filePath);
+            var builder = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json");
+
+            var configuration = builder.Build();
+
+            string pathValue;
+            if(!configuration.Providers.First().TryGet("AppSettings:FilePath", out pathValue))
+            {
+                pathValue = "Resources/Text.txt"; //default value in case nothing configured
+            }
+
+            fileInfo = File.ReadAllLines(pathValue);
         }
 
         public string GetLine(int index)
