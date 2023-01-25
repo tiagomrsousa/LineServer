@@ -1,9 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace LineServer.Service
 {
@@ -27,7 +24,14 @@ namespace LineServer.Service
                 pathValue = "Resources/Text.txt"; //default value in case nothing configured
             }
 
-            fileInfo = File.ReadAllLines(pathValue);
+            try
+            {
+                fileInfo = File.ReadAllLines(pathValue);
+            }
+            catch (DirectoryNotFoundException)
+            {
+                fileInfo = new string[0];
+            }
         }
 
         public string GetLine(int index)

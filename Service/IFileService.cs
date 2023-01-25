@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace LineServer.Service
 {
-    interface IFileService
+    public interface IFileService
     {
         string GetLine(int index);
     }
