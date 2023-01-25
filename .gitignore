@@ -3,3 +3,5 @@
 /.vs/LineServer/v16/.suo
 /bin/*
 /obj/*
+/LineServerTests/bin/*
+/LineServerTests/obj/*
