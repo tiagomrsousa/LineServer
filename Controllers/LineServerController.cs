@@ -37,7 +37,15 @@ namespace LineServer.Controllers
         {
             try
             {
-                return Ok(fileService.GetLine(line));
+                string result = fileService.GetLine(line);
+
+                if(result == null)
+                {
+                    string message = "Index was outside the bounds of the array.";
+                    _logger.LogError(message);
+                    return StatusCode(413, message);
+                }
+                return Ok(result);
             }
             catch(IndexOutOfRangeException e)
             {

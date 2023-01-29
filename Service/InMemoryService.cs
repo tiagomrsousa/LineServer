@@ -36,6 +36,12 @@ namespace LineServer.Service
 
         public string GetLine(int index)
         {
+            //This way we avoid throwing a IndexOutOfRangeException and in consequence avoid unwrap the stack
+            if (index > fileInfo.Length || index < 0)
+            {
+                return null;
+            }
+
             return fileInfo[index];
         }
     }
