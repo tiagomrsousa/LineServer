@@ -43,6 +43,8 @@ namespace LineServer.Controllers
                 {
                     string message = "Index was outside the bounds of the array.";
                     _logger.LogError(message);
+                    //maybe the best error code to return here should be a 404 - Not Found, because we are trying to retrieve something that doesn't exists.
+                    //but is just my opinion
                     return StatusCode(413, message);
                 }
                 return Ok(result);
@@ -50,8 +52,6 @@ namespace LineServer.Controllers
             catch(IndexOutOfRangeException e)
             {
                 _logger.LogError(e.Message);
-                //maybe the best error code to return here should be a 404 - Not Found, because we are trying to retrieve something that doesn't exists.
-                //but is just my opinion
                 return StatusCode(413, e.Message); 
             }
             catch (Exception e)
